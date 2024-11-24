@@ -5,12 +5,11 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.4</version>
-
     </parent>
     <groupId>cl.company</groupId>
     <artifactId>api-books-archetype</artifactId>
     <packaging>jar</packaging>
-    <version>1.0-0</version>
+    <version>1.0.0</version>
     <name>api-books-archetype</name>
     <url>maven.apache.org</url>
     <properties>

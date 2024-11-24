@@ -3,18 +3,22 @@ package cl.company.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
+
+@Data
 @Entity
 @Table(name = "Book")
-
+@AllArgsConstructor
+@NoArgsConstructor
 public class Book {
 
-    // Getters
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "title")
     @NotBlank(message = "No puede ingresar un title vacio")
@@ -46,7 +50,7 @@ public class Book {
     @NotNull(message = "No puede ingresar un linkImage nulo")
     private String linkImage;
 
-    // Constructor privado para el Builder
+
     private Book(Builder builder) {
         this.id = builder.id;
         this.title = builder.title;
@@ -57,13 +61,11 @@ public class Book {
         this.linkImage = builder.linkImage;
     }
 
-    public Book() {
 
-    }
 
-    // Builder interno
+
     public static class Builder {
-        private int id;
+        private Long id;
         private String title;
         private String author;
         private String description;
@@ -72,6 +74,48 @@ public class Book {
         private String linkImage;
 
 
+
+        public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+
+        public Builder title(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder author(String author) {
+            this.author = author;
+            return this;
+        }
+
+
+
+        public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder publishedDate(String publishedDate) {
+            this.publishedDate = publishedDate;
+            return this;
+        }
+
+        public Builder gender(String gender) {
+            this.gender = gender;
+            return this;
+        }
+
+        public Builder linkImage(String linkImage) {
+            this.linkImage = linkImage;
+            return this;
+        }
+
+        public Book build() {
+            return new Book(this);
+        }
     }
 
 }

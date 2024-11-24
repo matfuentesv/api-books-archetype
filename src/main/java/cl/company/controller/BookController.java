@@ -1,8 +1,8 @@
 package cl.company.controller;
 
 import cl.company.exception.ApiResponse;
-import cl.company.model.EntityModel;
-import cl.company.service.EntityService;
+import cl.company.model.Book;
+import cl.company.service.BookService;
 import jakarta.validation.Valid;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,33 +18,33 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @Log
-public class EntityController {
+public class BookController {
 
     @Autowired
-    EntityService entityService;
+    BookService bookService;
 
 
-    @GetMapping(value = "/findAllEntity", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<EntityModel>> findAllEntity() {
-        log.info("Se solicita la lista de todas las entidades.");
-        return ResponseEntity.ok(entityService.findAll());
+    @GetMapping(value = "/findAllBook", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Book>> findAllBook() {
+        log.info("Se solicita la lista de todas los libros.");
+        return ResponseEntity.ok(bookService.findAll());
     }
 
-    @GetMapping("/findEntity/{id}")
-    public ResponseEntity<Object> findEntity(@PathVariable Long id) {
+    @GetMapping("/findBook/{id}")
+    public ResponseEntity<Object> findBook(@PathVariable Long id) {
 
         if (StringUtils.containsWhitespace(String.valueOf(id))|| id == null) {
             log.info("El id no se ingreso");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse("Algunos de los parámetros no se ingresaron",false));
         }
-        return ResponseEntity.ok(entityService.findEntity(id));
+        return ResponseEntity.ok(bookService.findBook(id));
     }
 
-    @PostMapping("/createEntity")
-    public ResponseEntity<Object> createEntity(@Valid @RequestBody EntityModel entityModel,
+    @PostMapping("/createBook")
+    public ResponseEntity<Object> createBook(@Valid @RequestBody Book book,
                                              BindingResult bindingResult) throws MethodArgumentNotValidException {
 
-        if (entityModel == null) {
+        if (book == null) {
             log.info("Algunos de los parámetros no se ingresaron");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse("Algunos de los parámetros no se ingresaron",false));
         }
@@ -53,15 +53,15 @@ public class EntityController {
             throw new MethodArgumentNotValidException(null, bindingResult);
         }
 
-        return ResponseEntity.ok(entityService.createEntity(entityModel));
+        return ResponseEntity.ok(bookService.createBook(book));
     }
 
 
-    @PutMapping("/updateEntity")
-    public ResponseEntity<Object> updateEntity(@Valid @RequestBody EntityModel entityModel,
+    @PutMapping("/updateBook")
+    public ResponseEntity<Object> updateBook(@Valid @RequestBody Book book,
                                              BindingResult bindingResult) throws MethodArgumentNotValidException {
 
-        if (entityModel == null) {
+        if (book == null) {
             log.info("Algunos de los parámetros no se ingresaron");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse("Algunos de los parámetros no se ingresaron",false));
         }
@@ -70,11 +70,11 @@ public class EntityController {
             throw new MethodArgumentNotValidException(null, bindingResult);
         }
 
-        return ResponseEntity.ok(entityService.updateEntity(entityModel));
+        return ResponseEntity.ok(bookService.updateBook(book));
     }
 
-    @DeleteMapping("/deleteEntity/{id}")
-    public ResponseEntity<Object> deleteEntity(@PathVariable Long id) {
+    @DeleteMapping("/deleteBook/{id}")
+    public ResponseEntity<Object> deleteBook(@PathVariable Long id) {
 
         if (StringUtils.containsWhitespace(String.valueOf(id))|| id == null) {
             log.info("El id no se ingreso");
@@ -82,14 +82,14 @@ public class EntityController {
         }
 
 
-        EntityModel entityModel = entityService.findEntity(id);
+        Book book = bookService.findBook(id);
 
-        if (entityModel != null) {
-            entityService.deleteEntity(id);
-            return ResponseEntity.ok(new ApiResponse("Entidad eliminada",true));
+        if (book.getId() != null) {
+            bookService.deleteBook(id);
+            return ResponseEntity.ok(new ApiResponse("Libro eliminada",true));
         } else {
-            log.info("Entidad no encontrado con id: " + id);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("Entidad no encontrado",false));
+            log.info("Libro no encontrado con id: " + id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("Libro no encontrado",false));
         }
     }
 
