@@ -1,8 +1,24 @@
-FROM openjdk:21-ea-1-jdk
+FROM eclipse-temurin:22-jdk AS buildstage
+
+RUN apt-get update && apt-get install -y maven
 
 WORKDIR /app
-COPY target/api-books-archetype-1.0.0.jar app.jar
-COPY Wallet_NKYTD6DF15M2NHAO /app/oracle_wallet
+
+COPY pom.xml .
+COPY src /app/src
+COPY Wallet_NKYTD6DF15M2NHAO /app/wallet
+
+ENV TNS_ADMIN=/app/wallet
+
+RUN mvn clean package
+
+FROM eclipse-temurin:22-jdk
+
+COPY --from=buildstage /app/target/api-books-archetype-1.0.0.jar /app/api-book.jar
+
+COPY Wallet_NKYTD6DF15M2NHAO /app/wallet
+
+ENV TNS_ADMIN=/app/wallet
 EXPOSE 8080
 
-CMD [ "java", "-jar", "app.jar" ]
+ENTRYPOINT [ "java", "-jar","/app/api-book.jar" ]
