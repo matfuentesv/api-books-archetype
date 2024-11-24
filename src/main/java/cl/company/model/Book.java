@@ -1,12 +1,15 @@
 package cl.company.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Data
 @Entity
@@ -21,33 +24,23 @@ public class Book {
     private Long id;
 
     @Column(name = "title")
-    @NotBlank(message = "No puede ingresar un title vacio")
-    @NotNull(message = "No puede ingresar un title nulo")
     private String title;
 
     @Column(name = "author")
-    @NotBlank(message = "No puede ingresar un author vacio")
-    @NotNull(message = "No puede ingresar un author nulo")
+
     private String author;
 
     @Column(name = "description")
-    @NotBlank(message = "No puede ingresar un title vacio")
-    @NotNull(message = "No puede ingresar un title nulo")
     private String description;
 
     @Column(name = "publishedDate")
-    @NotBlank(message = "No puede ingresar un author vacio")
-    @NotNull(message = "No puede ingresar un author nulo")
     private String publishedDate;
 
     @Column(name = "gender")
-    @NotBlank(message = "No puede ingresar un gender vacio")
-    @NotNull(message = "No puede ingresar un gender nulo")
     private String gender;
 
     @Column(name = "linkImage")
-    @NotBlank(message = "No puede ingresar un linkImage vacio")
-    @NotNull(message = "No puede ingresar un linkImage nulo")
+
     private String linkImage;
 
 

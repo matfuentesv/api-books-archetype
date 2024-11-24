@@ -3,7 +3,8 @@ package cl.company.controller;
 import cl.company.exception.ApiResponse;
 import cl.company.model.Book;
 import cl.company.service.BookService;
-import jakarta.validation.Valid;
+
+
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,7 +42,7 @@ public class BookController {
     }
 
     @PostMapping("/createBook")
-    public ResponseEntity<Object> createBook(@Valid @RequestBody Book book,
+    public ResponseEntity<Object> createBook( @RequestBody Book book,
                                              BindingResult bindingResult) throws MethodArgumentNotValidException {
 
         if (book == null) {
@@ -58,7 +59,7 @@ public class BookController {
 
 
     @PutMapping("/updateBook")
-    public ResponseEntity<Object> updateBook(@Valid @RequestBody Book book,
+    public ResponseEntity<Object> updateBook( @RequestBody Book book,
                                              BindingResult bindingResult) throws MethodArgumentNotValidException {
 
         if (book == null) {
