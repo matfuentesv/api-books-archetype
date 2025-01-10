@@ -1,0 +1,10 @@
+cl\company\exception\ApiResponse.class
+cl\company\controller\BookController.class
+cl\company\service\impl\BookServiceImpl.class
+cl\company\config\SecurityConfig.class
+cl\company\model\Book$Builder.class
+cl\company\repository\BookRepository.class
+cl\company\service\BookService.class
+cl\company\App.class
+cl\company\controller\DefaultController.class
+cl\company\model\Book.class
